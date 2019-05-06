@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: https://mingleiboy.github.io/sitemap.xml
