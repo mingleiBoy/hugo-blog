@@ -1,0 +1,26 @@
+baseURL: https://wangminglei.github.io
+languageCode: en-us
+title: 王明磊的博客
+theme: even
+defaultContentLanguage: zh-cn  # 默认 en，文章内容的默认编码，必须用小写字母和用 "-" 连接。有些主题支持多语言，这里的设置会改变菜单和按钮的显示语言。
+#defaultContentLanguageInSubdir: false  # 如果站点支持多语言，这选项为 true 时，/ 会重定向到对应的语言版本，如 /en/、/zh-cn/ 等。
+hasCJKLanguage: true  # 文章内容是否有中日韩文，会影响字数统计。
+enableEmoji: true  # 支持表情
+enableGitInfo: true  # 开启后可以用 Git 提交时间作为文章最后修改时间。
+enableRobotsTXT: true  # 自动生成给搜索引擎爬虫用的 robots.txt。如果你打算手写，可以不启用。
+# https://gohugo.io/templates/robots/
+metaDataFormat: yaml  # 文章开头的元数据（Hugo 称为 front matter）的格式
+preserveTaxonomyNames: true  # 标签名是西欧字母时保留原文，不自动转为对应的英文字母
+paginate: 10  # 分页长度，每页显示多少篇博文
+# 元数据设置，各种日期的匹配规则。从数组第1个元素开始，匹配不上才到下一个。
+frontmatter:
+  date: ['date', ':filename', ':default']  # 名为 date 的变量、文件名开头 yyyy-mm-dd- 的前缀、默认
+  lastmod: [':git', ':fileModTime', ':default']  # Git 提交时间、文件属性里的修改时间、默认
+# https://gohugo.io/content-management/urls/#canonicalization
+disablePathToLower: true  # URL 路径区分大小写
+permalinks:
+  post: /:sections/:year/:month/:day/:slug
+# URL 格式，每个 key 对应 content/ 下的一级子目录。
+# :sections 代表 content/ 下的目录结构，原样映射成 URL 路径。
+# :year、:month、:day 都会从文件前缀 yyyy-mm-dd 里提取。
+# :slug 在文章的 front matter 里定义，如果没定义会用文件名。
