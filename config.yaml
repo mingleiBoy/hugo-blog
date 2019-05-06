@@ -1,6 +1,6 @@
 baseURL: https://mingleiboy.github.io/
 languageCode: en-us
-title: 王明磊的博客
+title: my blog ~~~~~~~
 theme: even
 defaultContentLanguage: zh-cn  # 默认 en，文章内容的默认编码，必须用小写字母和用 "-" 连接。有些主题支持多语言，这里的设置会改变菜单和按钮的显示语言。
 #defaultContentLanguageInSubdir: false  # 如果站点支持多语言，这选项为 true 时，/ 会重定向到对应的语言版本，如 /en/、/zh-cn/ 等。
