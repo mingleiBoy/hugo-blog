@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>王明磊的博客</title>
+  <title>Block原理 - 王明磊的博客</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="mingleiBoy" /><meta name="description" content="Hugo theme even example site." /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="mingleiBoy" /><meta name="description" content="Block原理 block 里的ptr是怎么区分函数类型的？ 函数指针自己能区分？怎么区分？ block里的值都是值传递，__block才能是引用传递？ auto: 值" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,9 +26,7 @@
 <meta name="generator" content="Hugo 0.55.5 with even 4.0.0" />
 
 
-<link rel="canonical" href="https://mingleiboy.github.io/" />
-  <link href="https://mingleiboy.github.io/index.xml" rel="alternate" type="application/rss+xml" title="王明磊的博客" />
-  <link href="https://mingleiboy.github.io/index.xml" rel="feed" type="application/rss+xml" title="王明磊的博客" />
+<link rel="canonical" href="https://mingleiboy.github.io/post/block%E5%8E%9F%E7%90%86/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,19 +38,27 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="王明磊的博客" />
-<meta property="og:description" content="Hugo theme even example site." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://mingleiboy.github.io/" />
+<meta property="og:title" content="Block原理" />
+<meta property="og:description" content="Block原理 block 里的ptr是怎么区分函数类型的？ 函数指针自己能区分？怎么区分？ block里的值都是值传递，__block才能是引用传递？ auto: 值" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mingleiboy.github.io/post/block%E5%8E%9F%E7%90%86/" />
+<meta property="article:published_time" content="2019-05-07T12:35:29&#43;08:00"/>
+<meta property="article:modified_time" content="2019-05-07T12:35:29&#43;08:00"/>
 
-<meta property="og:updated_time" content="2019-05-07T12:35:29&#43;08:00"/>
+<meta itemprop="name" content="Block原理">
+<meta itemprop="description" content="Block原理 block 里的ptr是怎么区分函数类型的？ 函数指针自己能区分？怎么区分？ block里的值都是值传递，__block才能是引用传递？ auto: 值">
 
-<meta itemprop="name" content="王明磊的博客">
-<meta itemprop="description" content="Hugo theme even example site.">
 
+<meta itemprop="datePublished" content="2019-05-07T12:35:29&#43;08:00" />
+<meta itemprop="dateModified" content="2019-05-07T12:35:29&#43;08:00" />
+<meta itemprop="wordCount" content="318">
+
+
+
+<meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="王明磊的博客"/>
-<meta name="twitter:description" content="Hugo theme even example site."/>
+<meta name="twitter:title" content="Block原理"/>
+<meta name="twitter:description" content="Block原理 block 里的ptr是怎么区分函数类型的？ 函数指针自己能区分？怎么区分？ block里的值都是值传递，__block才能是引用传递？ auto: 值"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -112,51 +118,102 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          <section id="posts" class="posts">
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/2019-05-07-first/">2019 05 07 First</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-05-07 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-       Hello World! 
-    </div>
-    <div class="read-more">
-      <a href="/post/2019-05-07-first/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/block%E5%8E%9F%E7%90%86/">Block原理</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-05-07 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Block原理 block 里的ptr是怎么区分函数类型的？ 函数指针自己能区分？怎么区分？ block里的值都是值传递，__block才能是引用传递？ auto: 值
-    </div>
-    <div class="read-more">
-      <a href="/post/block%E5%8E%9F%E7%90%86/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    </section>
-  
-  <nav class="pagination">
+          <article class="post">
     
-    
-  </nav>
+    <header class="post-header">
+      <h1 class="post-title">Block原理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-05-07 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#block原理">Block原理</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h1 id="block原理">Block原理</h1>
+
+<ol>
+<li><p>block 里的ptr是怎么区分函数类型的？<br />
+函数指针自己能区分？怎么区分？</p></li>
+
+<li><p>block里的值都是值传递，__block才能是引用传递？<br />
+auto:</p>
+
+<ul>
+<li>值传递， 普通局部变量<br /></li>
+<li>因为局部变量内存随时可能被回收，无法访问<br />
+<br /></li>
+</ul>
+
+<p>static: 指针传递， 那__block是啥原理？<br />
+全局变量: 不捕获，用的时候直接去取</p></li>
+
+<li><p>NSBlock &lt;&ndash; NSObject</p>
+
+<ul>
+<li>globalBlock（少用，也少问） <strong>stackBlock  mallocBlock</strong></li>
+<li>只要没有访问 auto(局部)变量，都是 globalBlock，如果访问了，就是 stackBlock.<br />
+
+<ol>
+<li>那 mallocBlock 是啥时候访问的？</li>
+</ol></li>
+<li><strong>[stackBlock copy] &ndash;&gt; mallocBlock</strong> （copy方法做了什么？对引用计数有什么影响？）<br />
+[globalBlock copy] &ndash;&gt; globalBlock (不重要)<br />
+[mallocBlock copy] &ndash;&gt; mallocBlock (不重要)</li>
+</ul></li>
+
+<li><p>[Block copy] 何时由 ARC 自动调用？</p>
+
+<ul>
+<li><strong>block 作为返回值</strong><br /></li>
+<li><strong>将block赋值给__strong指针时</strong><br /></li>
+<li>cocoa api 中 usingBlock 方法（eg. NSArray遍历）</li>
+<li>GCD Api 方法   dispatch_once dispatch_after</li>
+</ul></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">mingleiBoy</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-05-07
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-05-07-first/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">2019 05 07 First</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
         </div>
         
 
